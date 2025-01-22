@@ -1,0 +1,30 @@
+@host = localhost:5140
+
+###
+
+POST http://{{host}}/login HTTP/1.1
+content-type: application/json
+
+{
+	"email": "user@domain.com",
+	"password": "12345"
+}
+
+###
+
+POST http://{{host}}/login HTTP/1.1
+content-type: application/json
+
+{
+	"email": "user@domain.com",
+	"password": "wrong"
+}
+
+###
+
+GET http://{{host}}/logout HTTP/1.1
+
+###
+
+
+GET http://{{host}}/user HTTP/1.1
