@@ -1,10 +1,20 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication("cookie").AddCookie("cookie");
+builder.Services.AddAuthentication("cookie")
+.AddCookie("cookie", options => {
+	options.Events.OnRedirectToLogin = context => {
+		context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+		return Task.CompletedTask;
+	};
+
+	options.Events.OnRedirectToAccessDenied = context => {
+		context.Response.StatusCode = StatusCodes.Status403Forbidden;
+		return Task.CompletedTask;
+	};
+});
 
 builder.Services.AddAuthorization(builder => {
 	builder.AddPolicy("admin", policyBuilder => {
