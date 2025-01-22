@@ -22,8 +22,8 @@ builder.Services.AddAuthentication("cookie")
 		return Task.CompletedTask;
 	};
 
-	// to configure cookie renewal use
-	// options.Events.CheckSlidingExpiration = context => {}
+	// by default cookies will renew when 50% of the expiration time has passed
+	// but to configure cookie renewal use options.Events.CheckSlidingExpiration = context => {}
 	// more info: https://github.com/dotnet/aspnetcore/blob/main/src/Security/Authentication/Cookies/samples/CookieSample/Program.cs#L18-L30
 });
 
